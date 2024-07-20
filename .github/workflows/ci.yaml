@@ -7,8 +7,7 @@ on:
   pull_request:  # Evento de pull request
     branches:  # Dispara solo en estas ramas en pull requests
       - master  # Dispara en pull requests hacia la rama 'master'
-
-# Nombre del flujo de trabajo
+      
 name: CI
 
 # Define los trabajos que se ejecutarán en este flujo de trabajo
@@ -37,5 +36,6 @@ jobs:
       - name: Build and  push
         uses: docker/build-push-action@v5
         with:
-          push: true  # No sube la imagen al registro de contenedores
-          tags: miltonpaucar99/nginx-dockerfile-ci:${{ github.sha }}  # Etiqueta de la imagen usando el SHA del commit
+          push: true  # Sube la imagen al registro de contenedores
+          tags: miltonpaucar99/nginx-dockerfile-ci:${{ github.sha }}
+  # Etiqueta de la imagen usando el SHA del commit
