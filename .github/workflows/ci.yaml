@@ -1,40 +1,27 @@
-# Define los eventos que disparan este flujo de trabajo en GitHub.
+name: ci
+
 on:
-  push:  # Evento de push
-    branches-ignore:  # Ignora ciertas ramas en push
-      - master  # Ignora la rama 'master'
-  pull_request:  # Evento de pull request
-    branches:  # Dispara solo en estas ramas en pull requests
-      - master  # Dispara en pull requests hacia la rama 'master'
-      
-name: CI
+  push:
 
-# Define los trabajos que se ejecutarán en este flujo de trabajo
 jobs:
-  # Trabajo llamado 'docker' que se ejecuta en Ubuntu
   docker:
-    runs-on: ubuntu-latest  # Usa la versión más reciente de Ubuntu disponible
-
-    steps:  # Pasos que se ejecutan dentro de este trabajo
-      # Configura QEMU para virtualización
-      - name: Set up QEMU
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      
-      # Configura Docker Buildx para construir imágenes Docker multiplataforma
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
-      # Inicia sesión en Docker Hub con credenciales seguras
-      - name: Login to Docker Hub
+      -
+        name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # Nombre de usuario seguro almacenado en secretos
-          password: ${{ secrets.DOCKER_PASSWORD }}  # Contraseña segura almacenada en secretos
-      
-      # Construye una imagen Docker pero no la sube
-      - name: Build and  push
-        uses: docker/build-push-action@v5
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v6
         with:
-          push: true  # Sube la imagen al registro de contenedores
-          tags: miltonpaucar99/nginx-dockerfile-ci:${{ github.sha }}
-  # Etiqueta de la imagen usando el SHA del commit
+          push: true
+          tags: user/app:latest
