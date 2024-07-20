@@ -5,7 +5,7 @@ on:
     - mpaucar
   pull_request:
     branches:
-      - main
+      - master
 
 name: CI
 jobs:
