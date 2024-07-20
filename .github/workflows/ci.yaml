@@ -3,7 +3,6 @@ on:
   push:  # Evento de push
     branches-ignore:  # Ignora ciertas ramas en push
       - master  # Ignora la rama 'master'
-      - mpaucar  # Ignora la rama 'mpaucar'
   pull_request:  # Evento de pull request
     branches:  # Dispara solo en estas ramas en pull requests
       - master  # Dispara en pull requests hacia la rama 'master'
